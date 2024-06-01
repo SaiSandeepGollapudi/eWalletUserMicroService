@@ -1,4 +1,4 @@
-package com.paypal.ewallet.user.service;
+package com.paypal.ewallet.user.service.resource;
 
 import com.paypal.ewallet.user.domain.User;
 import jakarta.validation.constraints.Email;

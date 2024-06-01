@@ -1,6 +1,6 @@
 package com.paypal.ewallet.user.controller;
 
-import com.paypal.ewallet.user.service.UserRequest;
+import com.paypal.ewallet.user.service.resource.UserRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ public class UserController {
 
     @PostMapping("user")
     public ResponseEntity<?> createUser(@RequestBody @Valid UserRequest userRequest){
-        userServi
+        userService
 return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
