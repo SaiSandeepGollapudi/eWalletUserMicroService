@@ -53,8 +53,7 @@ public class KafkaConfiguration {
 @Bean
     public KafkaTemplate<String, String> kafkaTemplate(){
     return new KafkaTemplate<>(producerFactory());
-//KafkaTemplate is constructed using the producerFactory bean.
-//KafkaTemplate provides a high-level API to send messages to Kafka topics.
+//KafkaTemplate is constructed using the producerFactory bean. It provides a high-level API to send messages to Kafka topics.
 
 }
 }

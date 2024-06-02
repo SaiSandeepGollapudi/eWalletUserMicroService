@@ -1,5 +1,6 @@
 package com.paypal.ewallet.user.controller;
 
+import com.paypal.ewallet.user.domain.User;
 import com.paypal.ewallet.user.service.UserService;
 import com.paypal.ewallet.user.service.resource.UserRequest;
 import com.paypal.ewallet.user.service.resource.UserResponse;
@@ -20,9 +21,15 @@ public class UserController {
 return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-//    @GetMapping("user/{id}")
-//    public ResponseEntity getUser(@PathVariable ("id") String id){
-//UserResponse userResponse= userService.getUser(id);
-//
-//    }
+    @GetMapping("user/{id}")
+    public ResponseEntity<UserResponse> getUser(@PathVariable("id") String id){
+        UserResponse userResponse=userService.getUser(id);
+        return new ResponseEntity<>(userResponse,HttpStatus.OK);
+    }
+
+    @DeleteMapping("user/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable("id") String id){
+        User user=userService.deleteUser(id);
+        return new ResponseEntity<>(new UserResponse(user),HttpStatus.OK);
+    }
 }
