@@ -33,7 +33,7 @@ public class KafkaConfiguration {
         // configuration settings for the Kafka producer.
     Map<String, Object> config= new HashMap<>();
     config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,"localhost:9092");
-    config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);//strings will be serialized  using
+    config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);//strings will be serialized using
     // the StringSerializer which is a class provided with the Kafka clients.in Kafka when you use a producer,you pass
     // in some information and at first there will be a string and that will be serialized into bytes by this
     // key.serializer and the value.serializer before being sent to Apache Kafka.
@@ -51,9 +51,7 @@ public class KafkaConfiguration {
 }
 
 @Bean
-    public KafkaTemplate<String, String> kafkaTemplate(){
-    return new KafkaTemplate<>(producerFactory());
-//KafkaTemplate is constructed using the producerFactory bean. It provides a high-level API to send messages to Kafka topics.
-
+    public KafkaTemplate<String, String> kafkaTemplate(){// It provides a high-level API to send messages to Kafka topics.
+    return new KafkaTemplate<>(producerFactory());//KafkaTemplate is constructed using the producerFactory bean.
 }
 }
