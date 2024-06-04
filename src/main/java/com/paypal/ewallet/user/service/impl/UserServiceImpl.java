@@ -41,6 +41,7 @@ public class UserServiceImpl implements UserService {
         if(userOptional.isPresent()){
             throw new UserException("EWALLET_USER_EXISTS_EXCEPTION", "user already exists");
         }
+
         //encode the password before storing
         user.setPassword(encoder.encode(user.getPassword()));
 
