@@ -32,4 +32,18 @@ return new ResponseEntity<>(HttpStatus.CREATED);
         User user=userService.deleteUser(id);
         return new ResponseEntity<>(new UserResponse(user),HttpStatus.OK);
     }
+
+
+
+    @PutMapping("/user")//PUT is used to update or replace an existing resource.
+//    PUT does not create a new resource if it's not already present; it typically returns an error if the resource does not exist.
+    public ResponseEntity<User> updateUser(@RequestParam("userId") String id, @RequestBody @Valid UserRequest userRequest){
+        if (!userService.userExists(id)) {
+            // Return a response with HTTP status NOT_FOUND if the book does not exist
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(userService.updateUser(id, userRequest.toUser()),HttpStatus.OK);
+    }
+
 }

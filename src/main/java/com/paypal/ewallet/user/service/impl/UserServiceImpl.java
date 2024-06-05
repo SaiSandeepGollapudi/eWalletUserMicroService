@@ -77,8 +77,43 @@ public class UserServiceImpl implements UserService {
         return userOptional.get();
     }
 
+//    @Override
+//    public User updateUser(String id) {
+//
+//
+//        return null;
+//    }
+
     @Override
-    public User updateUser(String id) {
-        return null;
+    public User updateUser(String Id, User updatedUserData) {
+        Optional<User> optionalOriginalUser = userRepository.findById(Long.valueOf(Id));// retrieve the original book entity from the repository based on the provided Id using
+        // the findById method of the bookRepository. The result is wrapped in an Optional to handle cases where the book may not exist.
+//        The Optional<Book> type was introduced in Java 8  to deal with potentially null values in a safer and more concise manner
+//Presence of Value:If a value of type Book is present, it is wrapped inside an Optional<Book> instance using the of() method or other factory methods provided by the Optional class.
+// Absence of a Value: If the value is absent (i.e., null), an empty Optional<Book> instance is created using the empty() method.
+//                Avoiding NullPointerExceptions:
+//        Optional<Book> helps prevent NullPointerExceptions by providing methods to safely access and manipulate the value without directly exposing it.
+//        Operations on Optional:
+//        Optional<Book> provides various methods to perform operations on the wrapped value, such as get(), isPresent(), orElse(), orElseGet(), orElseThrow(), etc.
+        if (optionalOriginalUser.isPresent()) { // Check if the original book entity exists in the repository
+            // If the original book exists, update it with the provided book entity
+            // This assumes that the book entity passed as an argument contains the updated data
+            User originalUser = optionalOriginalUser.get();
+            originalUser.setEmail(updatedUserData.getEmail());
+            originalUser.setPassword(encoder.encode(updatedUserData.getPassword()));
+            originalUser.setName(updatedUserData.getName());
+            return userRepository.save(originalUser);
+
+
+        }else {
+            // Handle the case where the book with the provided ID does not exist
+            return null;
+        }
     }
+
+    public boolean userExists(String id) {//   Return a response with HTTP status NOT_FOUND if the book does not exist
+
+        return userRepository.existsById(Long.valueOf(id));
+    }
+
 }

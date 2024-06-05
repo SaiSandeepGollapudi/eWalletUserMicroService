@@ -8,9 +8,11 @@ public void createUser(User user);
 
 public UserResponse getUser(String id);// here for id we give String instead of Long as from input by user is in JSON/ String
 
-public User updateUser(String id);
+    public User updateUser(String Id, User updatedUserData) ;
 
 public User deleteUser(String id);
+
+    public boolean userExists(String id) ;
 
 
 
