@@ -1,5 +1,6 @@
 package com.paypal.ewallet.user.service;
 import com.paypal.ewallet.user.domain.User;
+import com.paypal.ewallet.user.service.resource.TransactionRequest;
 import com.paypal.ewallet.user.service.resource.UserResponse;
 
 public interface UserService {
@@ -14,6 +15,7 @@ public User deleteUser(String id);
 
     public boolean userExists(String id) ;
 
+    public boolean transfer(Long userId, TransactionRequest request);
 
 
 }

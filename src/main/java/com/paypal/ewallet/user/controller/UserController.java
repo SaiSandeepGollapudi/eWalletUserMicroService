@@ -46,4 +46,7 @@ return new ResponseEntity<>(HttpStatus.CREATED);
         return new ResponseEntity<>(userService.updateUser(id, userRequest.toUser()),HttpStatus.OK);
     }
 
+    @PostMapping("/user/{user-id}/transfer")
+    public ResponseEntity<?> performTransaction(@PathVariable("user-id") String userId, @RequestBody @Valid TransactionRequest transactionRequest) {
+    }
 }

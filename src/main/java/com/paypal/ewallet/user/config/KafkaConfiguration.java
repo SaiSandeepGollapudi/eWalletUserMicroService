@@ -31,7 +31,12 @@ public class KafkaConfiguration {
 @Bean
     public Map<String, Object> kafkaProducerConfig(){//This method returns a Map<String, Object> containing the
         // configuration settings for the Kafka producer.
-    Map<String, Object> config= new HashMap<>();
+    Map<String, Object> config= new HashMap<>();//~/kafka_2.13-3.7.0/bin/zookeeper-server-start.sh ~/kafka_2.13-3.7.0/config/zookeeper.properties
+//    ~/kafka_2.13-3.7.0/bin/kafka-server-start.sh ~/kafka_2.13-3.7.0/config/server.properties
+//    kafka_2.13-3.7.0/bin/
+//            kafka_2.13-3.7.0/bin/kafka-topics.sh --bootstrap-server localhost:9092 --topic USER_CREATED --create
+//    kafka_2.13-3.7.0/bin/kafka-topics.sh --bootstrap-server localhost:9092 --topic USER_DELETED --create
+//    kafka_2.13-3.7.0/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic USER_CREATED
     config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,"localhost:9092");
     config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);//strings will be serialized using
     // the StringSerializer which is a class provided with the Kafka clients.in Kafka when you use a producer,you pass

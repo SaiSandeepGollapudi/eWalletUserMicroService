@@ -4,9 +4,11 @@ import com.paypal.ewallet.user.domain.User;
 import com.paypal.ewallet.user.exception.UserException;
 import com.paypal.ewallet.user.repository.UserRepository;
 import com.paypal.ewallet.user.service.UserService;
+import com.paypal.ewallet.user.service.resource.TransactionRequest;
 import com.paypal.ewallet.user.service.resource.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -111,9 +113,27 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+
+    @Override
+    public boolean transfer(Long userId, TransactionRequest request) {
+        Optional<User> senderOptional=userRepository.findById(userId);
+        if(senderOptional.isEmpty()){
+            throw new UserException("EWALLET_USER_NOT_FOUND_EXCEPTION","User not found");
+        }
+        Optional<User> receiverOptional=userRepository.findById(request.getReceiverId());
+        if(receiverOptional.isEmpty()) {
+            throw new UserException("EWALLET_RECEIVER_NOT_FOUND_EXCEPTION", "Receiver not found");
+        }
+        //ResponseEntity<Boolean> response=restTemplate.postForEntity("http://TRANSACTION/transaction/"+userId,request,Boolean.class);
+        ResponseEntity<Boolean> response=client.transaction(userId,request);
+
+        return response.getBody();
+    }
+
     public boolean userExists(String id) {//   Return a response with HTTP status NOT_FOUND if the book does not exist
 
         return userRepository.existsById(Long.valueOf(id));
     }
+
 
 }
