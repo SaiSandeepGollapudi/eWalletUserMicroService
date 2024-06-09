@@ -18,6 +18,7 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
 
+    //Usually one service is developed by one developer and they will know what request to accept and response to expect `
     @Value("${kafka.topic.user-created}")//The USER_CREATED_TOPIC field is populated with the topic name from the
     // application configuration (application.properties or application.yml).
     private String USER_CREATED_TOPIC;
