@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Optional;
 @Service
@@ -33,6 +34,9 @@ public class UserServiceImpl implements UserService {
     @Autowired//The KafkaTemplate is a helper class that simplifies sending messages to Kafka topics. It is injected
     // into the UserServiceImpl class by Spring.
     KafkaTemplate<String, String>  kafkaTemplate;
+
+    @Autowired
+    RestTemplate restTemplate;
 
     @Override
     public void createUser(User user) {
@@ -120,12 +124,12 @@ public class UserServiceImpl implements UserService {
         if(senderOptional.isEmpty()){
             throw new UserException("EWALLET_USER_NOT_FOUND_EXCEPTION","User not found");
         }
-        Optional<User> receiverOptional=userRepository.findById(request.getReceiverId());
+        Optional<User> receiverOptional=userRepository.findById(request.getReceiverId());// from TransactionRequest request
         if(receiverOptional.isEmpty()) {
             throw new UserException("EWALLET_RECEIVER_NOT_FOUND_EXCEPTION", "Receiver not found");
         }
         //ResponseEntity<Boolean> response=restTemplate.postForEntity("http://TRANSACTION/transaction/"+userId,request,Boolean.class);
-        ResponseEntity<Boolean> response=client.transaction(userId,request);
+       // ResponseEntity<Boolean> response=client.transaction(userId,request);
 
         return response.getBody();
     }

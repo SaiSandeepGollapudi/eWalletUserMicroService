@@ -2,6 +2,7 @@ package com.paypal.ewallet.user.controller;
 
 import com.paypal.ewallet.user.domain.User;
 import com.paypal.ewallet.user.service.UserService;
+import com.paypal.ewallet.user.service.resource.TransactionRequest;
 import com.paypal.ewallet.user.service.resource.UserRequest;
 import com.paypal.ewallet.user.service.resource.UserResponse;
 import jakarta.validation.Valid;
@@ -42,11 +43,15 @@ return new ResponseEntity<>(HttpStatus.CREATED);
             // Return a response with HTTP status NOT_FOUND if the book does not exist
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
         return new ResponseEntity<>(userService.updateUser(id, userRequest.toUser()),HttpStatus.OK);
     }
 
     @PostMapping("/user/{user-id}/transfer")
     public ResponseEntity<?> performTransaction(@PathVariable("user-id") String userId, @RequestBody @Valid TransactionRequest transactionRequest) {
+        boolean success=userService.transfer(Long.valueOf(userId),transactionRequest);
+        if(success)
+            return new ResponseEntity<>(success,HttpStatus.OK);
+        return new ResponseEntity<>(success,HttpStatus.BAD_REQUEST);
     }
+
 }
